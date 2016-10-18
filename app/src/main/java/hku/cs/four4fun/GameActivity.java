@@ -7,8 +7,11 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import java.util.Stack;
+
 import hku.cs.four4fun.model.Chess;
 import hku.cs.four4fun.model.ChessBoard;
+import hku.cs.four4fun.util.ChessTuple;
 
 public class GameActivity extends AppCompatActivity {
 
@@ -17,7 +20,9 @@ public class GameActivity extends AppCompatActivity {
     private ImageView gameViews[][];
     private Chess[][] chessBoardArray;
     private Button restartButton;
+    private Button retractButton;
     private int chessCountTracer;
+    private Stack<ChessTuple<Integer, Integer, String>> retractStack;
 
     private boolean gameover = false;
     private String turnRole;
@@ -103,18 +108,40 @@ public class GameActivity extends AppCompatActivity {
         restartButton = (Button) findViewById(R.id.restart);
         restartButton.setOnClickListener(new RestartButtionListener());
 
+        retractButton = (Button) findViewById(R.id.retract);
+        retractButton.setOnClickListener(new RetractButtonListener());
+
         turnRole = "Red";  // Red Turn As Default
         chessCountTracer = 0;  // Check for the number of chess have been placed in the board
+        retractStack = new Stack<ChessTuple<Integer, Integer, String>>();
     }
 
     public void restartGame() {
-        board.initBoard();
+        chessBoardArray = board.getChessBoard();
         turnRole = "Red";
         chessCountTracer = 0;  // Check for the number of chess have been placed in the board
 
         for (int i = 0; i < board.getBoardRow(); i++) {
             for (int j = 0; j < board.getBoardColumn(); j++) {
                 gameViews[i][j].setImageResource(R.drawable.blank);
+            }
+        }
+
+        retractStack.clear();
+    }
+
+    class RetractButtonListener implements View.OnClickListener {
+        @Override
+        public void onClick(View view) {
+            if (!retractStack.isEmpty()) {
+                ChessTuple<Integer, Integer, String> tuple = retractStack.pop();
+                int row = tuple.getRow();
+                int col = tuple.getColumn();
+                String role = tuple.getRole();
+
+                gameViews[row][col].setImageResource(R.drawable.blank);
+                chessBoardArray[row][col].setType(0);
+                turnRole = role;
             }
         }
     }
@@ -151,6 +178,7 @@ public class GameActivity extends AppCompatActivity {
                             Toast.makeText(GameActivity.this, "Winner is " + turnRole, Toast.LENGTH_LONG).show();
                             board.printChessBoardArr(chessBoardArray);
                         }
+                        retractStack.push(new ChessTuple<Integer, Integer, String>(i, chess_col, turnRole));
                         turnRole = "Green";
                     } else {
                         chessBoardArray[i][chess_col].setType(2);
@@ -159,6 +187,7 @@ public class GameActivity extends AppCompatActivity {
                             Toast.makeText(GameActivity.this, "Winner is " + turnRole, Toast.LENGTH_LONG).show();
                             board.printChessBoardArr(chessBoardArray);
                         }
+                        retractStack.push(new ChessTuple<Integer, Integer, String>(i, chess_col, turnRole));
                         turnRole = "Red";
                     }
                     chessCountTracer += 1;
