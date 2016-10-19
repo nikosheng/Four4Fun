@@ -1,6 +1,7 @@
-package hku.cs.four4fun;
+package hku.cs.four4fun.hku.cs.four4fun.activity;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -11,6 +12,7 @@ import android.widget.Toast;
 
 import java.util.Stack;
 
+import hku.cs.four4fun.R;
 import hku.cs.four4fun.model.Chess;
 import hku.cs.four4fun.model.ChessBoard;
 import hku.cs.four4fun.util.ChessTuple;
@@ -147,7 +149,9 @@ public class GameActivity extends AppCompatActivity {
                .setNegativeButton("Exit", new DialogInterface.OnClickListener() {
                    @Override
                    public void onClick(DialogInterface dialogInterface, int id) {
-                       finish();
+                       Intent backIntent = new Intent();
+                       backIntent.setClass(GameActivity.this, GameMenuActivity.class);
+                       startActivity(backIntent);
                    }
                });
 

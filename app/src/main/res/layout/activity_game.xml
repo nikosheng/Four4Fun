@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="hku.cs.four4fun.GameActivity">
+    tools:context="hku.cs.four4fun.hku.cs.four4fun.activity.GameActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
