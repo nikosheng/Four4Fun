@@ -1,6 +1,8 @@
 package hku.cs.four4fun;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -12,6 +14,8 @@ import java.util.Stack;
 import hku.cs.four4fun.model.Chess;
 import hku.cs.four4fun.model.ChessBoard;
 import hku.cs.four4fun.util.ChessTuple;
+
+import static hku.cs.four4fun.R.id.restart;
 
 public class GameActivity extends AppCompatActivity {
 
@@ -105,7 +109,7 @@ public class GameActivity extends AppCompatActivity {
             }
         }
 
-        restartButton = (Button) findViewById(R.id.restart);
+        restartButton = (Button) findViewById(restart);
         restartButton.setOnClickListener(new RestartButtionListener());
 
         retractButton = (Button) findViewById(R.id.retract);
@@ -130,6 +134,27 @@ public class GameActivity extends AppCompatActivity {
         retractStack.clear();
     }
 
+    public void restartOrExit() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(GameActivity.this);
+        builder.setTitle("Four4Fun")
+               .setMessage("Do you want to restart?")
+               .setPositiveButton("RESTART", new DialogInterface.OnClickListener() {
+                   @Override
+                   public void onClick(DialogInterface dialogInterface, int id) {
+                       restartGame();
+                   }
+               })
+               .setNegativeButton("Exit", new DialogInterface.OnClickListener() {
+                   @Override
+                   public void onClick(DialogInterface dialogInterface, int id) {
+                       finish();
+                   }
+               });
+
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
+
     class RetractButtonListener implements View.OnClickListener {
         @Override
         public void onClick(View view) {
@@ -149,7 +174,7 @@ public class GameActivity extends AppCompatActivity {
     class RestartButtionListener implements View.OnClickListener {
         @Override
         public void onClick(View view) {
-            restartGame();
+            restartOrExit();
         }
     }
 
@@ -157,7 +182,8 @@ public class GameActivity extends AppCompatActivity {
         @Override
         public void onClick(View view) {
             if (chessCountTracer == 41) {
-                Toast.makeText(GameActivity.this, "Draw", Toast.LENGTH_LONG).show();
+                Toast.makeText(GameActivity.this, "Draw", Toast.LENGTH_SHORT).show();
+                restartOrExit();
             }
 
             ImageView chess = (ImageView) view;
@@ -175,8 +201,9 @@ public class GameActivity extends AppCompatActivity {
                         chessBoardArray[i][chess_col].setType(1);
                         gameViews[i][chess_col].setImageResource(R.drawable.red);
                         if (board.isFourinRow(chess_row, chess_col, turnRole, chessBoardArray)) {
-                            Toast.makeText(GameActivity.this, "Winner is " + turnRole, Toast.LENGTH_LONG).show();
+                            Toast.makeText(GameActivity.this, "Winner is " + turnRole, Toast.LENGTH_SHORT).show();
                             board.printChessBoardArr(chessBoardArray);
+                            restartOrExit();
                         }
                         retractStack.push(new ChessTuple<Integer, Integer, String>(i, chess_col, turnRole));
                         turnRole = "Green";
@@ -184,8 +211,9 @@ public class GameActivity extends AppCompatActivity {
                         chessBoardArray[i][chess_col].setType(2);
                         gameViews[i][chess_col].setImageResource(R.drawable.green);
                         if (board.isFourinRow(chess_row, chess_col, turnRole, chessBoardArray)) {
-                            Toast.makeText(GameActivity.this, "Winner is " + turnRole, Toast.LENGTH_LONG).show();
+                            Toast.makeText(GameActivity.this, "Winner is " + turnRole, Toast.LENGTH_SHORT).show();
                             board.printChessBoardArr(chessBoardArray);
+                            restartOrExit();
                         }
                         retractStack.push(new ChessTuple<Integer, Integer, String>(i, chess_col, turnRole));
                         turnRole = "Red";
