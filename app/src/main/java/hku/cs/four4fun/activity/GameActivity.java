@@ -1,4 +1,4 @@
-package hku.cs.four4fun.hku.cs.four4fun.activity;
+package hku.cs.four4fun.activity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -129,7 +129,7 @@ public class GameActivity extends AppCompatActivity {
 
         for (int i = 0; i < board.getBoardRow(); i++) {
             for (int j = 0; j < board.getBoardColumn(); j++) {
-                gameViews[i][j].setImageResource(R.drawable.blank);
+                gameViews[i][j].setImageResource(R.drawable.red);
             }
         }
 
@@ -168,7 +168,7 @@ public class GameActivity extends AppCompatActivity {
                 int col = tuple.getColumn();
                 String role = tuple.getRole();
 
-                gameViews[row][col].setImageResource(R.drawable.blank);
+                gameViews[row][col].setImageResource(R.drawable.red);
                 chessBoardArray[row][col].setType(0);
                 turnRole = role;
             }
@@ -203,7 +203,7 @@ public class GameActivity extends AppCompatActivity {
 
                     if (turnRole.equals("Red")) {
                         chessBoardArray[i][chess_col].setType(1);
-                        gameViews[i][chess_col].setImageResource(R.drawable.red);
+                        gameViews[i][chess_col].setImageResource(R.drawable.pikachu);
                         if (board.isFourinRow(chess_row, chess_col, turnRole, chessBoardArray)) {
                             Toast.makeText(GameActivity.this, "Winner is " + turnRole, Toast.LENGTH_SHORT).show();
                             board.printChessBoardArr(chessBoardArray);
@@ -213,7 +213,7 @@ public class GameActivity extends AppCompatActivity {
                         turnRole = "Green";
                     } else {
                         chessBoardArray[i][chess_col].setType(2);
-                        gameViews[i][chess_col].setImageResource(R.drawable.green);
+                        gameViews[i][chess_col].setImageResource(R.drawable.dratini);
                         if (board.isFourinRow(chess_row, chess_col, turnRole, chessBoardArray)) {
                             Toast.makeText(GameActivity.this, "Winner is " + turnRole, Toast.LENGTH_SHORT).show();
                             board.printChessBoardArr(chessBoardArray);

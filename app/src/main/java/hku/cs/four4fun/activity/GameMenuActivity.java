@@ -1,4 +1,4 @@
-package hku.cs.four4fun.hku.cs.four4fun.activity;
+package hku.cs.four4fun.activity;
 
 import android.content.Intent;
 import android.os.Bundle;

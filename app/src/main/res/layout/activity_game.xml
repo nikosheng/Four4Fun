@@ -4,183 +4,394 @@
     android:id="@+id/activity_game"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/game_background"
     android:orientation="vertical"
-    tools:context="hku.cs.four4fun.hku.cs.four4fun.activity.GameActivity">
+    tools:context="hku.cs.four4fun.activity.GameActivity">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_weight="0.2">
 
 
-    </RelativeLayout>
+    </LinearLayout>
 
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="7">
+        android:layout_weight="6">
 
-        <TableRow>
+        <TableRow
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
             <ImageView
                 android:id="@+id/chess00"
-                android:src="@drawable/blank"/>
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:src="@drawable/red" />
+
             <ImageView
                 android:id="@+id/chess01"
-                android:src="@drawable/blank"/>
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:src="@drawable/red" />
+
             <ImageView
                 android:id="@+id/chess02"
-                android:src="@drawable/blank"/>
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:src="@drawable/red" />
+
             <ImageView
                 android:id="@+id/chess03"
-                android:src="@drawable/blank"/>
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:src="@drawable/red" />
+
             <ImageView
                 android:id="@+id/chess04"
-                android:src="@drawable/blank"/>
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:src="@drawable/red" />
+
             <ImageView
                 android:id="@+id/chess05"
-                android:src="@drawable/blank"/>
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:src="@drawable/red" />
+
             <ImageView
                 android:id="@+id/chess06"
-                android:src="@drawable/blank"/>
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:src="@drawable/red" />
         </TableRow>
 
-        <TableRow>
+        <TableRow android:layout_weight="1">
+
             <ImageView
                 android:id="@+id/chess10"
-                android:src="@drawable/blank"/>
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:src="@drawable/red" />
+
             <ImageView
                 android:id="@+id/chess11"
-                android:src="@drawable/blank"/>
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:src="@drawable/red" />
+
             <ImageView
                 android:id="@+id/chess12"
-                android:src="@drawable/blank"/>
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:src="@drawable/red" />
+
             <ImageView
                 android:id="@+id/chess13"
-                android:src="@drawable/blank"/>
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:src="@drawable/red" />
+
             <ImageView
                 android:id="@+id/chess14"
-                android:src="@drawable/blank"/>
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:src="@drawable/red" />
+
             <ImageView
                 android:id="@+id/chess15"
-                android:src="@drawable/blank"/>
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:src="@drawable/red" />
+
             <ImageView
                 android:id="@+id/chess16"
-                android:src="@drawable/blank"/>
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:src="@drawable/red" />
         </TableRow>
 
-        <TableRow>
+        <TableRow android:layout_weight="1">
+
             <ImageView
                 android:id="@+id/chess20"
-                android:src="@drawable/blank"/>
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:src="@drawable/red" />
+
             <ImageView
                 android:id="@+id/chess21"
-                android:src="@drawable/blank"/>
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:src="@drawable/red" />
+
             <ImageView
                 android:id="@+id/chess22"
-                android:src="@drawable/blank"/>
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:src="@drawable/red" />
+
             <ImageView
                 android:id="@+id/chess23"
-                android:src="@drawable/blank"/>
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:src="@drawable/red" />
+
             <ImageView
                 android:id="@+id/chess24"
-                android:src="@drawable/blank"/>
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:src="@drawable/red" />
+
             <ImageView
                 android:id="@+id/chess25"
-                android:src="@drawable/blank"/>
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:src="@drawable/red" />
+
             <ImageView
                 android:id="@+id/chess26"
-                android:src="@drawable/blank"/>
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:src="@drawable/red" />
         </TableRow>
 
-        <TableRow>
+        <TableRow android:layout_weight="1">
+
             <ImageView
                 android:id="@+id/chess30"
-                android:src="@drawable/blank"/>
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:src="@drawable/red" />
+
             <ImageView
                 android:id="@+id/chess31"
-                android:src="@drawable/blank"/>
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:src="@drawable/red" />
+
             <ImageView
                 android:id="@+id/chess32"
-                android:src="@drawable/blank"/>
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:src="@drawable/red" />
+
             <ImageView
                 android:id="@+id/chess33"
-                android:src="@drawable/blank"/>
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:src="@drawable/red" />
+
             <ImageView
                 android:id="@+id/chess34"
-                android:src="@drawable/blank"/>
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:src="@drawable/red" />
+
             <ImageView
                 android:id="@+id/chess35"
-                android:src="@drawable/blank"/>
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:src="@drawable/red" />
+
             <ImageView
                 android:id="@+id/chess36"
-                android:src="@drawable/blank"/>
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:src="@drawable/red" />
         </TableRow>
 
-        <TableRow>
+        <TableRow android:layout_weight="1">
+
             <ImageView
                 android:id="@+id/chess40"
-                android:src="@drawable/blank"/>
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:src="@drawable/red" />
+
             <ImageView
                 android:id="@+id/chess41"
-                android:src="@drawable/blank"/>
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:src="@drawable/red" />
+
             <ImageView
                 android:id="@+id/chess42"
-                android:src="@drawable/blank"/>
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:src="@drawable/red" />
+
             <ImageView
                 android:id="@+id/chess43"
-                android:src="@drawable/blank"/>
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:src="@drawable/red" />
+
             <ImageView
                 android:id="@+id/chess44"
-                android:src="@drawable/blank"/>
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:src="@drawable/red" />
+
             <ImageView
                 android:id="@+id/chess45"
-                android:src="@drawable/blank"/>
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:src="@drawable/red" />
+
             <ImageView
                 android:id="@+id/chess46"
-                android:src="@drawable/blank"/>
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:src="@drawable/red" />
         </TableRow>
 
-        <TableRow>
+        <TableRow android:layout_weight="1">
+
             <ImageView
                 android:id="@+id/chess50"
-                android:src="@drawable/blank"/>
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:src="@drawable/red" />
+
             <ImageView
                 android:id="@+id/chess51"
-                android:src="@drawable/blank"/>
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:src="@drawable/red" />
+
             <ImageView
                 android:id="@+id/chess52"
-                android:src="@drawable/blank"/>
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:src="@drawable/red" />
+
             <ImageView
                 android:id="@+id/chess53"
-                android:src="@drawable/blank"/>
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:src="@drawable/red" />
+
             <ImageView
                 android:id="@+id/chess54"
-                android:src="@drawable/blank"/>
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:src="@drawable/red" />
+
             <ImageView
                 android:id="@+id/chess55"
-                android:src="@drawable/blank"/>
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:src="@drawable/red" />
+
             <ImageView
                 android:id="@+id/chess56"
-                android:src="@drawable/blank"/>
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:src="@drawable/red" />
         </TableRow>
 
     </TableLayout>
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1">
-        <Button
-            android:id="@+id/restart"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Restart"/>
+        android:layout_weight="3"
+        android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/retract"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/restart"
-            android:text="Retract"/>
-    </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:paddingTop="50dp"
+                android:src="@drawable/player" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/restart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:text="Restart" />
+
+            <Button
+                android:id="@+id/retract"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/restart"
+                android:text="Retract" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:paddingTop="50dp"
+                android:src="@drawable/player_1" />
+        </RelativeLayout>
+    </LinearLayout>
 </LinearLayout>
