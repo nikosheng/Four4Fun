@@ -1,5 +1,9 @@
 package hku.cs.four4fun.model;
 
+import java.util.ArrayList;
+
+import hku.cs.four4fun.util.ChessTuple;
+
 /**
  * Created by Niko Feng on 10/17/2016.
  */
@@ -8,6 +12,8 @@ public class ChessBoard {
     private static final int BOARD_ROW = 6;
     private static final int BOARD_COLUMN = 7;
     private Chess[][] chessBoard;
+    private ArrayList<ChessTuple<Integer, Integer, String>> winChessPos =
+            new ArrayList<ChessTuple<Integer, Integer, String>>();
 
     public static int getBoardRow() {
         return BOARD_ROW;
@@ -43,6 +49,10 @@ public class ChessBoard {
         }
     }
 
+    public ArrayList<ChessTuple<Integer, Integer, String>> getWinChessPos() {
+        return winChessPos;
+    }
+
 
     public boolean isFourinRow(int chess_row, int chess_col,
                                String turnRole, Chess[][] chessBoardArray) {
@@ -50,12 +60,13 @@ public class ChessBoard {
         int count = 0;
         boolean result = false;
         int i, j;
+        winChessPos.clear();
 
         switch (turnRole) {
-            case "Red":
+            case "Player1":
                 turnType = 1;
                 break;
-            case "Green":
+            case "Player2":
                 turnType = 2;
                 break;
         }
@@ -64,12 +75,14 @@ public class ChessBoard {
         for (i = 0; i < BOARD_COLUMN; i++) {
             if (chessBoardArray[chess_row][i].getType() == turnType) {
                 count += 1;
+                winChessPos.add(new ChessTuple<Integer, Integer, String>(chess_row, i, turnRole));
 
                 if (count == 4) {
                     result = true;
                     break;
                 }
             } else {
+                winChessPos.clear();
                 count = 0;
             }
         }
@@ -81,12 +94,14 @@ public class ChessBoard {
             for (i = 0; i < BOARD_ROW; i++) {
                 if (chessBoardArray[i][chess_col].getType() == turnType) {
                     count += 1;
+                    winChessPos.add(new ChessTuple<Integer, Integer, String>(i, chess_col, turnRole));
 
                     if (count == 4) {
                         result = true;
                         break;
                     }
                 } else {
+                    winChessPos.clear();
                     count = 0;
                 }
             }
@@ -103,12 +118,14 @@ public class ChessBoard {
                         i++, j++) {
                     if (chessBoardArray[i][j].getType() == turnType) {
                         count += 1;
+                        winChessPos.add(new ChessTuple<Integer, Integer, String>(i, j, turnRole));
 
                         if (count == 4) {
                             result = true;
                             break;
                         }
                     } else {
+                        winChessPos.clear();
                         count = 0;
                     }
                 }
@@ -127,12 +144,14 @@ public class ChessBoard {
                 {
                     if (chessBoardArray[i][j].getType() == turnType) {
                         count += 1;
+                        winChessPos.add(new ChessTuple<Integer, Integer, String>(i, j, turnRole));
 
                         if (count == 4) {
                             result = true;
                             break;
                         }
                     } else {
+                        winChessPos.clear();
                         count = 0;
                     }
                 }
@@ -151,12 +170,14 @@ public class ChessBoard {
                 {
                     if (chessBoardArray[i][j].getType() == turnType) {
                         count += 1;
+                        winChessPos.add(new ChessTuple<Integer, Integer, String>(i, j, turnRole));
 
                         if (count == 4) {
                             result = true;
                             break;
                         }
                     } else {
+                        winChessPos.clear();
                         count = 0;
                     }
                 }
@@ -175,12 +196,14 @@ public class ChessBoard {
                 {
                     if (chessBoardArray[i][j].getType() == turnType) {
                         count += 1;
+                        winChessPos.add(new ChessTuple<Integer, Integer, String>(i, j, turnRole));
 
                         if (count == 4) {
                             result = true;
                             break;
                         }
                     } else {
+                        winChessPos.clear();
                         count = 0;
                     }
                 }

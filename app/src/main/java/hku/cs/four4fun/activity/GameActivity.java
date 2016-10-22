@@ -5,11 +5,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.Toast;
+import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.Stack;
 
 import hku.cs.four4fun.R;
@@ -27,8 +29,13 @@ public class GameActivity extends AppCompatActivity {
     private Chess[][] chessBoardArray;
     private Button restartButton;
     private Button retractButton;
+    private TextView player1Name;
+    private TextView player2Name;
+    private ImageView player1Chess;
+    private ImageView player2Chess;
     private int chessCountTracer;
     private Stack<ChessTuple<Integer, Integer, String>> retractStack;
+    private ArrayList<ChessTuple<Integer, Integer, String>> winChessPos;
 
     private boolean gameover = false;
     private String turnRole;
@@ -101,7 +108,7 @@ public class GameActivity extends AppCompatActivity {
         for (int i = 0; i < board.getBoardRow(); i++) {
             for (int j = 0; j < board.getBoardColumn(); j++) {
                 gameViews[i][j].setOnClickListener(buttonClickListener);
-            }
+            } 
         }
 
         for (int i = 0; i < board.getBoardRow(); i++) {
@@ -117,19 +124,30 @@ public class GameActivity extends AppCompatActivity {
         retractButton = (Button) findViewById(R.id.retract);
         retractButton.setOnClickListener(new RetractButtonListener());
 
-        turnRole = "Red";  // Red Turn As Default
+        turnRole = "Player1";  // Player1 Turn As Default
         chessCountTracer = 0;  // Check for the number of chess have been placed in the board
         retractStack = new Stack<ChessTuple<Integer, Integer, String>>();
+
+        Intent menuIntent = getIntent();
+        player1Name = (TextView) findViewById(R.id.player1_name);
+        player2Name = (TextView) findViewById(R.id.player2_name);
+        player1Chess = (ImageView) findViewById(R.id.player1_chess);
+        player2Chess = (ImageView) findViewById(R.id.player2_chess);
+        player1Chess.setVisibility(View.VISIBLE);
+        player2Chess.setVisibility(View.INVISIBLE);
+        player1Name.setText(menuIntent.getStringExtra("player1"));
+        player2Name.setText(menuIntent.getStringExtra("player2"));
     }
 
     public void restartGame() {
         chessBoardArray = board.getChessBoard();
-        turnRole = "Red";
+        turnRole = "Player1";
         chessCountTracer = 0;  // Check for the number of chess have been placed in the board
 
         for (int i = 0; i < board.getBoardRow(); i++) {
             for (int j = 0; j < board.getBoardColumn(); j++) {
                 gameViews[i][j].setImageResource(R.drawable.red);
+                gameViews[i][j].setOnClickListener(new ChessButtonListener());
             }
         }
 
@@ -175,6 +193,60 @@ public class GameActivity extends AppCompatActivity {
         }
     }
 
+    public void setWinChessImg(ArrayList<ChessTuple<Integer, Integer, String>> winChessPos) {
+        for (ChessTuple<Integer, Integer, String> tuple : winChessPos) {
+            int row = tuple.getRow();
+            int col = tuple.getColumn();
+            String role = tuple.getRole();
+
+            gameViews[row][col].setImageResource(R.drawable.pokecoin);
+        }
+    }
+
+    public void forbidClickable() {
+        for (int i = 0; i < board.getBoardRow(); i++) {
+            for (int j = 0; j < board.getBoardColumn(); j++) {
+                gameViews[i][j].setClickable(false);
+            }
+        }
+    }
+
+    public void gameResultDialog(String turnRole) {
+        AlertDialog.Builder builder;
+        View resultinfo = LayoutInflater.from(GameActivity.this).inflate(R.layout.result_info, null);
+        ImageView winner_img = (ImageView) resultinfo.findViewById(R.id.winner_img);
+        TextView result = (TextView) resultinfo.findViewById(R.id.result);
+
+        switch (turnRole) {
+            case "Player1":
+                winner_img.setImageResource(R.drawable.player_1);
+                result.setText("Winner is " + player1Name.getText());
+                break;
+            case "Player2":
+                winner_img.setImageResource(R.drawable.player_2);
+                result.setText("Winner is " + player2Name.getText());
+                break;
+            case "Draw":
+                winner_img.setImageResource(R.drawable.psyduck);
+                result.setText("Game Draw");
+        }
+
+        builder = new AlertDialog.Builder(GameActivity.this);
+        builder.setView(resultinfo);
+
+        builder.setPositiveButton(R.string.back, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                onVisibleBehindCanceled();
+            }
+        });
+
+        builder.setCancelable(false);
+
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
+
     class RestartButtionListener implements View.OnClickListener {
         @Override
         public void onClick(View view) {
@@ -186,8 +258,7 @@ public class GameActivity extends AppCompatActivity {
         @Override
         public void onClick(View view) {
             if (chessCountTracer == 41) {
-                Toast.makeText(GameActivity.this, "Draw", Toast.LENGTH_SHORT).show();
-                restartOrExit();
+                gameResultDialog("Draw");
             }
 
             ImageView chess = (ImageView) view;
@@ -201,26 +272,34 @@ public class GameActivity extends AppCompatActivity {
                 if (chessBoardArray[i][chess_col].getType() == 0) {
                     chess_row = i;
 
-                    if (turnRole.equals("Red")) {
+                    if (turnRole.equals("Player1")) {
                         chessBoardArray[i][chess_col].setType(1);
                         gameViews[i][chess_col].setImageResource(R.drawable.pikachu);
                         if (board.isFourinRow(chess_row, chess_col, turnRole, chessBoardArray)) {
-                            Toast.makeText(GameActivity.this, "Winner is " + turnRole, Toast.LENGTH_SHORT).show();
-                            board.printChessBoardArr(chessBoardArray);
-                            restartOrExit();
+                            winChessPos = board.getWinChessPos();
+                            setWinChessImg(winChessPos);
+                            forbidClickable();
+                            retractStack.clear();
+                            gameResultDialog(turnRole);
                         }
                         retractStack.push(new ChessTuple<Integer, Integer, String>(i, chess_col, turnRole));
-                        turnRole = "Green";
+                        player1Chess.setVisibility(View.INVISIBLE);
+                        player2Chess.setVisibility(View.VISIBLE);
+                        turnRole = "Player2";
                     } else {
                         chessBoardArray[i][chess_col].setType(2);
                         gameViews[i][chess_col].setImageResource(R.drawable.dratini);
                         if (board.isFourinRow(chess_row, chess_col, turnRole, chessBoardArray)) {
-                            Toast.makeText(GameActivity.this, "Winner is " + turnRole, Toast.LENGTH_SHORT).show();
-                            board.printChessBoardArr(chessBoardArray);
-                            restartOrExit();
+                            winChessPos = board.getWinChessPos();
+                            setWinChessImg(winChessPos);
+                            forbidClickable();
+                            retractStack.clear();
+                            gameResultDialog(turnRole);
                         }
                         retractStack.push(new ChessTuple<Integer, Integer, String>(i, chess_col, turnRole));
-                        turnRole = "Red";
+                        player1Chess.setVisibility(View.VISIBLE);
+                        player2Chess.setVisibility(View.INVISIBLE);
+                        turnRole = "Player1";
                     }
                     chessCountTracer += 1;
                     break;

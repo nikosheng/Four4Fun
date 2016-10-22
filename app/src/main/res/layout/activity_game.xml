@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/game_background"
     android:orientation="vertical"
+    android:splitMotionEvents="false"
     tools:context="hku.cs.four4fun.activity.GameActivity">
 
     <LinearLayout
@@ -354,8 +355,28 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true"
-                android:paddingTop="50dp"
-                android:src="@drawable/player" />
+                android:layout_marginTop="80dp"
+                android:src="@drawable/player_1" />
+
+            <ImageView
+                android:id="@+id/player1_chess"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="100dp"
+                android:layout_marginLeft="50dp"
+                android:src="@drawable/pikachu" />
+
+            <TextView
+                android:id="@+id/player1_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="6dp"
+                android:textStyle="bold"
+                android:textColor="#0000CD"
+                />
         </RelativeLayout>
 
         <LinearLayout
@@ -390,8 +411,28 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentTop="true"
-                android:paddingTop="50dp"
-                android:src="@drawable/player_1" />
+                android:layout_marginTop="80dp"
+                android:src="@drawable/player_2" />
+
+            <ImageView
+                android:id="@+id/player2_chess"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_marginTop="100dp"
+                android:layout_marginRight="50dp"
+                android:src="@drawable/dratini" />
+
+            <TextView
+                android:id="@+id/player2_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="6dp"
+                android:textStyle="bold"
+                android:textColor="#DC143C"
+                />
         </RelativeLayout>
     </LinearLayout>
 </LinearLayout>
