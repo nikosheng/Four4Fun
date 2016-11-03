@@ -11,7 +11,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Stack;
 
 import hku.cs.four4fun.R;
@@ -35,7 +35,7 @@ public class GameActivity extends AppCompatActivity {
     private ImageView player2Chess;
     private int chessCountTracer;
     private Stack<ChessTuple<Integer, Integer, String>> retractStack;
-    private ArrayList<ChessTuple<Integer, Integer, String>> winChessPos;
+    private HashSet<ChessTuple<Integer, Integer, String>> winChessPosSet;
 
     private boolean gameover = false;
     private String turnRole;
@@ -46,13 +46,12 @@ public class GameActivity extends AppCompatActivity {
         setContentView(R.layout.activity_game);
 
         initChessBoard();
-
-
     }
 
     public void initChessBoard() {
         board = new ChessBoard();
         chessBoardArray = board.getChessBoard();
+
         ChessButtonListener buttonClickListener = new ChessButtonListener();
 
         gameViews = new ImageView[board.getBoardRow()][board.getBoardColumn()];
@@ -108,7 +107,7 @@ public class GameActivity extends AppCompatActivity {
         for (int i = 0; i < board.getBoardRow(); i++) {
             for (int j = 0; j < board.getBoardColumn(); j++) {
                 gameViews[i][j].setOnClickListener(buttonClickListener);
-            } 
+            }
         }
 
         for (int i = 0; i < board.getBoardRow(); i++) {
@@ -142,6 +141,8 @@ public class GameActivity extends AppCompatActivity {
     public void restartGame() {
         chessBoardArray = board.getChessBoard();
         turnRole = "Player1";
+        player1Chess.setVisibility(View.VISIBLE);
+        player2Chess.setVisibility(View.INVISIBLE);
         chessCountTracer = 0;  // Check for the number of chess have been placed in the board
 
         for (int i = 0; i < board.getBoardRow(); i++) {
@@ -157,21 +158,21 @@ public class GameActivity extends AppCompatActivity {
     public void restartOrExit() {
         AlertDialog.Builder builder = new AlertDialog.Builder(GameActivity.this);
         builder.setTitle("Four4Fun")
-               .setMessage("Do you want to restart?")
-               .setPositiveButton("RESTART", new DialogInterface.OnClickListener() {
-                   @Override
-                   public void onClick(DialogInterface dialogInterface, int id) {
-                       restartGame();
-                   }
-               })
-               .setNegativeButton("Exit", new DialogInterface.OnClickListener() {
-                   @Override
-                   public void onClick(DialogInterface dialogInterface, int id) {
-                       Intent backIntent = new Intent();
-                       backIntent.setClass(GameActivity.this, GameMenuActivity.class);
-                       startActivity(backIntent);
-                   }
-               });
+                .setMessage("Do you want to restart?")
+                .setPositiveButton("RESTART", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int id) {
+                        restartGame();
+                    }
+                })
+                .setNegativeButton("Exit", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int id) {
+                        Intent backIntent = new Intent();
+                        backIntent.setClass(GameActivity.this, GameMenuActivity.class);
+                        startActivity(backIntent);
+                    }
+                });
 
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
@@ -189,18 +190,30 @@ public class GameActivity extends AppCompatActivity {
                 gameViews[row][col].setImageResource(R.drawable.red);
                 chessBoardArray[row][col].setType(0);
                 turnRole = role;
+
+                switch (turnRole) {
+                    case "Player1":
+                        player1Chess.setVisibility(View.VISIBLE);
+                        player2Chess.setVisibility(View.INVISIBLE);
+                        break;
+                    case "Player2":
+                        player1Chess.setVisibility(View.INVISIBLE);
+                        player2Chess.setVisibility(View.VISIBLE);
+                        break;
+                }
             }
         }
     }
 
-    public void setWinChessImg(ArrayList<ChessTuple<Integer, Integer, String>> winChessPos) {
-        for (ChessTuple<Integer, Integer, String> tuple : winChessPos) {
+    public void setWinChessImg(HashSet<ChessTuple<Integer, Integer, String>> winChessPosSet) {
+        for (ChessTuple<Integer, Integer, String> tuple : winChessPosSet) {
             int row = tuple.getRow();
             int col = tuple.getColumn();
             String role = tuple.getRole();
 
-            gameViews[row][col].setImageResource(R.drawable.pokecoin);
+            gameViews[row][col].setImageResource(R.drawable.pokeball);
         }
+
     }
 
     public void forbidClickable() {
@@ -276,11 +289,12 @@ public class GameActivity extends AppCompatActivity {
                         chessBoardArray[i][chess_col].setType(1);
                         gameViews[i][chess_col].setImageResource(R.drawable.pikachu);
                         if (board.isFourinRow(chess_row, chess_col, turnRole, chessBoardArray)) {
-                            winChessPos = board.getWinChessPos();
-                            setWinChessImg(winChessPos);
+                            winChessPosSet = board.getWinChessPos();
+                            gameResultDialog(turnRole);
+                            setWinChessImg(winChessPosSet);
                             forbidClickable();
                             retractStack.clear();
-                            gameResultDialog(turnRole);
+                            break;
                         }
                         retractStack.push(new ChessTuple<Integer, Integer, String>(i, chess_col, turnRole));
                         player1Chess.setVisibility(View.INVISIBLE);
@@ -290,11 +304,12 @@ public class GameActivity extends AppCompatActivity {
                         chessBoardArray[i][chess_col].setType(2);
                         gameViews[i][chess_col].setImageResource(R.drawable.dratini);
                         if (board.isFourinRow(chess_row, chess_col, turnRole, chessBoardArray)) {
-                            winChessPos = board.getWinChessPos();
-                            setWinChessImg(winChessPos);
+                            winChessPosSet = board.getWinChessPos();
+                            gameResultDialog(turnRole);
+                            setWinChessImg(winChessPosSet);
                             forbidClickable();
                             retractStack.clear();
-                            gameResultDialog(turnRole);
+                            break;
                         }
                         retractStack.push(new ChessTuple<Integer, Integer, String>(i, chess_col, turnRole));
                         player1Chess.setVisibility(View.VISIBLE);

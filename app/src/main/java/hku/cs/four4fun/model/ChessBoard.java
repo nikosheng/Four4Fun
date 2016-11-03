@@ -1,6 +1,7 @@
 package hku.cs.four4fun.model;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 import hku.cs.four4fun.util.ChessTuple;
 
@@ -14,6 +15,8 @@ public class ChessBoard {
     private Chess[][] chessBoard;
     private ArrayList<ChessTuple<Integer, Integer, String>> winChessPos =
             new ArrayList<ChessTuple<Integer, Integer, String>>();
+    private HashSet<ChessTuple<Integer, Integer, String>> winChessPosSet =
+            new HashSet<ChessTuple<Integer, Integer, String>>();
 
     public static int getBoardRow() {
         return BOARD_ROW;
@@ -49,8 +52,8 @@ public class ChessBoard {
         }
     }
 
-    public ArrayList<ChessTuple<Integer, Integer, String>> getWinChessPos() {
-        return winChessPos;
+    public HashSet<ChessTuple<Integer, Integer, String>> getWinChessPos() {
+        return winChessPosSet;
     }
 
 
@@ -60,7 +63,9 @@ public class ChessBoard {
         int count = 0;
         boolean result = false;
         int i, j;
+        int row = 0, col = 0;
         winChessPos.clear();
+        winChessPosSet.clear();
 
         switch (turnRole) {
             case "Player1":
@@ -77,138 +82,113 @@ public class ChessBoard {
                 count += 1;
                 winChessPos.add(new ChessTuple<Integer, Integer, String>(chess_row, i, turnRole));
 
-                if (count == 4) {
+                if (count >= 4) {
                     result = true;
-                    break;
+                    winChessPosSet.addAll(winChessPos);
                 }
             } else {
+                if (winChessPos.size() >= 4) {
+                    break;
+                }
                 winChessPos.clear();
                 count = 0;
             }
         }
 
         // Column Checking
-        if (!result) {
-            count = 0;
+        count = 0;
+        winChessPos.clear();
+        for (i = 0; i < BOARD_ROW; i++) {
+            if (chessBoardArray[i][chess_col].getType() == turnType) {
+                count += 1;
+                winChessPos.add(new ChessTuple<Integer, Integer, String>(i, chess_col, turnRole));
 
-            for (i = 0; i < BOARD_ROW; i++) {
-                if (chessBoardArray[i][chess_col].getType() == turnType) {
-                    count += 1;
-                    winChessPos.add(new ChessTuple<Integer, Integer, String>(i, chess_col, turnRole));
-
-                    if (count == 4) {
-                        result = true;
-                        break;
-                    }
-                } else {
-                    winChessPos.clear();
-                    count = 0;
+                if (count >= 4) {
+                    result = true;
+                    winChessPosSet.addAll(winChessPos);
                 }
+            } else {
+                if (winChessPos.size() >= 4) {
+                    break;
+                }
+                winChessPos.clear();
+                count = 0;
             }
         }
 
         /* Diagonal Checking Start */
-        if (!result) {
-            count = 0;
-            // Row Inc, Col Inc
-            if (chess_row <= BOARD_ROW - 4 && chess_col <= BOARD_COLUMN - 4) {
-                for (
-                        i = chess_row, j = chess_col;
-                        i <= chess_row + 3 && j <= chess_col + 3;
-                        i++, j++) {
-                    if (chessBoardArray[i][j].getType() == turnType) {
-                        count += 1;
-                        winChessPos.add(new ChessTuple<Integer, Integer, String>(i, j, turnRole));
+        // Diagonal Up Trend
+        count = 0;
+        winChessPos.clear();
+        for (
+                i = chess_row, j = chess_col;
+                i < BOARD_ROW && j >= 0;
+                i++, j--
+                )
+        {
+            row = i;
+            col = j;
+        }
 
-                        if (count == 4) {
-                            result = true;
-                            break;
-                        }
-                    } else {
-                        winChessPos.clear();
-                        count = 0;
-                    }
+        for (
+                i = row, j = col;
+                i >= 0 && j < BOARD_COLUMN;
+                i--, j++
+                )
+        {
+            if (chessBoardArray[i][j].getType() == turnType) {
+                count += 1;
+                winChessPos.add(new ChessTuple<Integer, Integer, String>(i, j, turnRole));
+
+                if (count >= 4) {
+                    result = true;
+                    winChessPosSet.addAll(winChessPos);
                 }
+            }else {
+                if (winChessPos.size() >= 4) {
+                    break;
+                }
+                winChessPos.clear();
+                count = 0;
             }
         }
 
-        // Row Inc, Col Dec
-        if (!result) {
-            count = 0;
-            if (chess_row <= BOARD_ROW - 4 && chess_col >= BOARD_COLUMN - 4) {
-                for (
-                        i = chess_row, j = chess_col;
-                        i <= chess_row + 3 && j >= chess_col - 3;
-                        i++, j--)
+        // Diagonal Down Trend
+        count = 0;
+        winChessPos.clear();
+        for (
+                i = chess_row, j = chess_col;
+                i >= 0 && j >= 0;
+                i--, j--
+                )
+        {
+            row = i;
+            col = j;
+        }
 
-                {
-                    if (chessBoardArray[i][j].getType() == turnType) {
-                        count += 1;
-                        winChessPos.add(new ChessTuple<Integer, Integer, String>(i, j, turnRole));
+        for (
+                i = row, j = col;
+                i < BOARD_ROW && j < BOARD_COLUMN;
+                i++, j++
+                )
+        {
+            if (chessBoardArray[i][j].getType() == turnType) {
+                count += 1;
+                winChessPos.add(new ChessTuple<Integer, Integer, String>(i, j, turnRole));
 
-                        if (count == 4) {
-                            result = true;
-                            break;
-                        }
-                    } else {
-                        winChessPos.clear();
-                        count = 0;
-                    }
+                if (count >= 4) {
+                    result = true;
+                    winChessPosSet.addAll(winChessPos);
                 }
+            }else {
+                if (winChessPos.size() >= 4) {
+                    break;
+                }
+                winChessPos.clear();
+                count = 0;
             }
         }
 
-        // Row Dec, Col Inc
-        if (!result) {
-            count = 0;
-            if (chess_row >= BOARD_ROW - 3 && chess_col <= BOARD_COLUMN - 4) {
-                for (
-                        i = chess_row, j = chess_col;
-                        i >= chess_row - 3 && j <= chess_col + 3;
-                        i--, j++)
-
-                {
-                    if (chessBoardArray[i][j].getType() == turnType) {
-                        count += 1;
-                        winChessPos.add(new ChessTuple<Integer, Integer, String>(i, j, turnRole));
-
-                        if (count == 4) {
-                            result = true;
-                            break;
-                        }
-                    } else {
-                        winChessPos.clear();
-                        count = 0;
-                    }
-                }
-            }
-        }
-
-        // Row Dec, Col Dec
-        if (!result) {
-            count = 0;
-            if (chess_row >= BOARD_ROW - 3 && chess_col >= BOARD_COLUMN - 4) {
-                for (
-                        i = chess_row, j = chess_col;
-                        i >= chess_row - 3 && j >= chess_col - 3;
-                        i--, j--)
-
-                {
-                    if (chessBoardArray[i][j].getType() == turnType) {
-                        count += 1;
-                        winChessPos.add(new ChessTuple<Integer, Integer, String>(i, j, turnRole));
-
-                        if (count == 4) {
-                            result = true;
-                            break;
-                        }
-                    } else {
-                        winChessPos.clear();
-                        count = 0;
-                    }
-                }
-            }
-        }
         /* Diagonal Checking End */
         return result;
     }

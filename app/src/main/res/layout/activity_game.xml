@@ -12,7 +12,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.2">
+        android:layout_weight="0.7">
 
 
     </LinearLayout>
@@ -20,7 +20,7 @@
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="6">
+        android:layout_weight="5">
 
         <TableRow
             android:layout_width="0dp"
@@ -343,6 +343,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="3"
+        android:paddingTop="20dp"
         android:orientation="horizontal">
 
         <RelativeLayout
@@ -379,7 +380,7 @@
                 />
         </RelativeLayout>
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -388,18 +389,23 @@
 
             <Button
                 android:id="@+id/restart"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="80dp"
+                android:layout_height="40dp"
                 android:layout_marginTop="30dp"
-                android:text="Restart" />
+                android:text="Restart"
+                android:background="#EE4000"
+                />
 
             <Button
                 android:id="@+id/retract"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toRightOf="@id/restart"
-                android:text="Retract" />
-        </LinearLayout>
+                android:layout_width="80dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="5dp"
+                android:layout_below="@id/restart"
+                android:text="Retract"
+                android:background="#FF8C69"
+                />
+        </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="0dp"
