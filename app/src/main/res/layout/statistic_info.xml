@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:background="#FFFFBB33"
+        android:textAlignment="center"
+        android:text="Statistic"
+        android:textAllCaps="true"
+        android:textSize="25sp"
+        android:textStyle="bold" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="4dp"
+        android:layout_weight="1">
+
+        <ImageView
+            android:id="@+id/player1_stat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerInParent="true"
+            android:src="@drawable/player_1" />
+
+        <TextView
+            android:id="@+id/player1_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="50sp"
+            android:textStyle="bold"
+            android:layout_marginLeft="60dp"
+            android:layout_toRightOf="@id/player1_stat"
+            android:layout_centerInParent="true"/>
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/crown"
+            android:layout_marginLeft="150dp"
+            android:layout_toRightOf="@id/player1_stat"
+            android:layout_centerInParent="true"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="4dp"
+        android:layout_weight="1">
+
+        <ImageView
+            android:id="@+id/player2_stat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerInParent="true"
+            android:src="@drawable/player_2" />
+
+        <TextView
+            android:id="@+id/player2_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="50sp"
+            android:textStyle="bold"
+            android:layout_marginLeft="60dp"
+            android:layout_toRightOf="@id/player2_stat"
+            android:layout_centerInParent="true"/>
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/crown"
+            android:layout_marginLeft="150dp"
+            android:layout_toRightOf="@id/player2_stat"
+            android:layout_centerInParent="true"/>
+    </RelativeLayout>
+
+</LinearLayout>

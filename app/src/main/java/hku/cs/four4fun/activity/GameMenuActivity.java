@@ -27,7 +27,7 @@ public class GameMenuActivity extends AppCompatActivity {
     private ImageView startGame = null;
     private AlertDialog.Builder builder;
     private MediaPlayer mediaplayer;
-    private boolean isReady;
+    private boolean isMediaPrepared;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -79,7 +79,7 @@ public class GameMenuActivity extends AppCompatActivity {
 
         try{
             mediaplayer.prepare();
-            isReady = true;
+            isMediaPrepared = true;
 
             if (!mediaplayer.isPlaying()) {
                 mediaplayer.start();
@@ -87,10 +87,10 @@ public class GameMenuActivity extends AppCompatActivity {
 
         } catch (IOException e) {
             e.printStackTrace();
-            isReady = false;
+            isMediaPrepared = false;
         }
 
-        if(isReady){
+        if(isMediaPrepared){
             mediaplayer.setLooping(true);
         }
     }

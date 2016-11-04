@@ -6,6 +6,9 @@ import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -39,6 +42,8 @@ public class GameActivity extends AppCompatActivity {
 
     private boolean gameover = false;
     private String turnRole;
+    private int player1Cnt;
+    private int player2Cnt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +51,26 @@ public class GameActivity extends AppCompatActivity {
         setContentView(R.layout.activity_game);
 
         initChessBoard();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = new MenuInflater(this);
+        menuInflater.inflate(R.menu.item_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int menuId = item.getItemId();
+
+        switch (menuId) {
+            case R.id.statistic:
+                statisticDialog();
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     public void initChessBoard() {
@@ -136,6 +161,8 @@ public class GameActivity extends AppCompatActivity {
         player2Chess.setVisibility(View.INVISIBLE);
         player1Name.setText(menuIntent.getStringExtra("player1"));
         player2Name.setText(menuIntent.getStringExtra("player2"));
+        player1Cnt = 0;
+        player2Cnt = 0;
     }
 
     public void restartGame() {
@@ -224,6 +251,31 @@ public class GameActivity extends AppCompatActivity {
         }
     }
 
+    public void statisticDialog() {
+        AlertDialog.Builder builder;
+        View statisticView = LayoutInflater.from(GameActivity.this).inflate(R.layout.statistic_info, null);
+        TextView player1Count = (TextView) statisticView.findViewById(R.id.player1_count);
+        TextView player2Count = (TextView) statisticView.findViewById(R.id.player2_count);
+
+        player1Count.setText(String.valueOf(player1Cnt));
+        player2Count.setText(String.valueOf(player2Cnt));
+
+        builder = new AlertDialog.Builder(GameActivity.this);
+        builder.setView(statisticView);
+
+        builder.setPositiveButton(R.string.back, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                onVisibleBehindCanceled();
+            }
+        });
+
+        builder.setCancelable(false);
+
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
+
     public void gameResultDialog(String turnRole) {
         AlertDialog.Builder builder;
         View resultinfo = LayoutInflater.from(GameActivity.this).inflate(R.layout.result_info, null);
@@ -292,6 +344,7 @@ public class GameActivity extends AppCompatActivity {
                             winChessPosSet = board.getWinChessPos();
                             gameResultDialog(turnRole);
                             setWinChessImg(winChessPosSet);
+                            player1Cnt += 1;
                             forbidClickable();
                             retractStack.clear();
                             break;
@@ -307,6 +360,7 @@ public class GameActivity extends AppCompatActivity {
                             winChessPosSet = board.getWinChessPos();
                             gameResultDialog(turnRole);
                             setWinChessImg(winChessPosSet);
+                            player2Cnt += 1;
                             forbidClickable();
                             retractStack.clear();
                             break;

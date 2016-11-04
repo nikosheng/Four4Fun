@@ -356,7 +356,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true"
-                android:layout_marginTop="80dp"
+                android:layout_marginTop="60dp"
                 android:src="@drawable/player_1" />
 
             <ImageView
@@ -364,7 +364,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:layout_marginTop="100dp"
+                android:layout_marginTop="80dp"
                 android:layout_marginLeft="50dp"
                 android:src="@drawable/pikachu" />
 
@@ -374,7 +374,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentBottom="true"
-                android:layout_marginBottom="6dp"
+                android:layout_marginBottom="2dp"
                 android:textStyle="bold"
                 android:textColor="#0000CD"
                 />
@@ -417,7 +417,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentTop="true"
-                android:layout_marginTop="80dp"
+                android:layout_marginTop="60dp"
                 android:src="@drawable/player_2" />
 
             <ImageView
@@ -425,7 +425,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
-                android:layout_marginTop="100dp"
+                android:layout_marginTop="80dp"
                 android:layout_marginRight="50dp"
                 android:src="@drawable/dratini" />
 
@@ -435,7 +435,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentBottom="true"
-                android:layout_marginBottom="6dp"
+                android:layout_marginBottom="2dp"
                 android:textStyle="bold"
                 android:textColor="#DC143C"
                 />
